@@ -271,7 +271,9 @@ void displaySortedEmployees(const vector<Employee> &employees)
 }
 void menu(vector<Employee> &employees)
 {
-    int choice;
+    int choice, id;
+    string name, department;
+    Employee youngest, oldest;
     do
     {
         cout << "Menu" << endl;
@@ -292,7 +294,6 @@ void menu(vector<Employee> &employees)
                 display(employees);
                 break;
             case 2:
-                int id;
                 cout << "Please enter an employee ID: ";
                 cin >> id;
                 displayEmployeeByID(employees, id);
@@ -301,17 +302,14 @@ void menu(vector<Employee> &employees)
                 displayDepartmentCount(countByDepartment(employees));
                 break;
             case 4:
-                string department;
                 cout << "Enter a department: ";
                 cin >> department;
                 displayByDepartment(employees, department);
                 break;
             case 5:
-                Employee youngest, oldest;
                 displayStatsByAge(employees, youngest, oldest);
                 break;
             case 6:
-                string name;
                 cout << "Enter employee name(first/last/full): ";
                 cin >> name;
                 displaySearchResults(employees, searchEmployeesByName(employees, name));
