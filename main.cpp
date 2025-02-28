@@ -205,7 +205,7 @@ vector<Employee> searchEmployeesByName(const vector<Employee> &employees, const 
     vector<Employee> result;
     for (const auto& employee : employees)
     {
-        if (employee.name == name)
+        if (employee.name.find(name) != string::npos)
         {
             result.push_back(employee);
         }
@@ -218,9 +218,10 @@ void displaySearchResults(const vector<Employee> &employees, const vector<Employ
     if (result.empty())
     {
         cout << "No employees found" << endl;
-        return;
+
     }
-    else {
+    else
+    {
         cout << "Search Results" << endl;
         cout << left << setw(10) << "ID"
                      << setw(20) << "Name"
@@ -268,18 +269,69 @@ void displaySortedEmployees(const vector<Employee> &employees)
         cout << string(70, '-') << endl;
     }
 }
+void menu(vector<Employee> &employees)
+{
+    int choice;
+    do
+    {
+        cout << "Menu" << endl;
+        cout << "1. Display all employees" << endl;
+        cout << "2. Search employee by ID" << endl;
+        cout << "3. Display department count" << endl;
+        cout << "4. Display employees in department" << endl;
+        cout << "5. Display stats by age" << endl;
+        cout << "6. Search employees by name" << endl;
+        cout << "7. Sort employees by salary" << endl;
+        cout << "8. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+            case 1:
+                display(employees);
+                break;
+            case 2:
+                int id;
+                cout << "Please enter an employee ID: ";
+                cin >> id;
+                displayEmployeeByID(employees, id);
+                break;
+            case 3:
+                displayDepartmentCount(countByDepartment(employees));
+                break;
+            case 4:
+                string department;
+                cout << "Enter a department: ";
+                cin >> department;
+                displayByDepartment(employees, department);
+                break;
+            case 5:
+                Employee youngest, oldest;
+                displayStatsByAge(employees, youngest, oldest);
+                break;
+            case 6:
+                string name;
+                cout << "Enter employee name(first/last/full): ";
+                cin >> name;
+                displaySearchResults(employees, searchEmployeesByName(employees, name));
+                break;
+            case 7:
+                sortEmployeesBySalary(employees);
+                displaySortedEmployees(employees);
+                break;
+            case 8:
+                cout << "Exiting program" << endl;
+                break;
+            default:
+                cout << "Invalid choice" << endl;
+        }
+    } while (choice != 8);
+}
 int main()
 {
     vector<Employee> employees;
     getEmployeesFromCSV("employee.csv", employees);
-    display(employees);
-    displayEmployeeByID(employees, searchByID(employees, 17));
-    displayDepartmentCount(countByDepartment(employees));
-    displayByDepartment(employees, "HR");
-    Employee youngest, oldest;
-    displayStatsByAge(employees, youngest, oldest);
-    displaySearchResults(employees, searchEmployeesByName(employees, "John"));
-    sortEmployeesBySalary(employees);
-    displaySortedEmployees(employees);
+    menu(employees);
     return 0;
 }
