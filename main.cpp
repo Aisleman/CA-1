@@ -8,6 +8,7 @@
 #include <algorithm>
 using namespace std;
 
+//Struct to store employee information
 struct Employee
 {
     int id;
@@ -17,6 +18,7 @@ struct Employee
     double salary;
 };
 
+//Function to read employee information from CSV file
 void getEmployeesFromCSV(const string& filename, vector<Employee> &employees)
 {
     ifstream file(filename);
@@ -51,6 +53,8 @@ void getEmployeesFromCSV(const string& filename, vector<Employee> &employees)
     }
     file.close();
 }
+
+//Function to display  all employee information
 void display(const vector<Employee> &employees)
 {
     cout << "Employee List" << endl;
@@ -72,6 +76,7 @@ void display(const vector<Employee> &employees)
     }
 }
 
+//Function to search employee by ID
 int searchByID(const vector<Employee> &employees, int id)
 {
     for (int i = 0; i < employees.size(); i++)
@@ -84,6 +89,7 @@ int searchByID(const vector<Employee> &employees, int id)
     return -1;
 }
 
+//Function to display employee information by ID
 void displayEmployeeByID(const vector<Employee> &employees, int id)
 {
     int index = searchByID(employees, id);
@@ -110,6 +116,7 @@ void displayEmployeeByID(const vector<Employee> &employees, int id)
     }
 }
 
+//Function to count employees by department
 map<string, int> countByDepartment(const vector<Employee> &employees)
 {
     map<string, int> departmentCount;
@@ -120,6 +127,7 @@ map<string, int> countByDepartment(const vector<Employee> &employees)
     return departmentCount;
 }
 
+//Function to display department count
 void displayDepartmentCount(const map<string, int> &departmentCount)
 {
     cout << "Department Count" << endl;
@@ -135,6 +143,7 @@ void displayDepartmentCount(const map<string, int> &departmentCount)
     }
 }
 
+//Function to display employees by department
 void displayByDepartment(const vector<Employee> &employees, const string& department)
 {
     cout << "Employee List by Department" << endl;
@@ -159,6 +168,7 @@ void displayByDepartment(const vector<Employee> &employees, const string& depart
     }
 }
 
+//Function to display employee stats by age
 void displayStatsByAge(const vector<Employee> &employees, Employee& youngest, Employee& oldest)
 {
     if (employees.empty())
@@ -200,6 +210,7 @@ void displayStatsByAge(const vector<Employee> &employees, Employee& youngest, Em
     cout << "Average Age: " << totalAge / employees.size() << endl;
 }
 
+//Function to search employees by name
 vector<Employee> searchEmployeesByName(const vector<Employee> &employees, const string& name)
 {
     vector<Employee> result;
@@ -213,6 +224,7 @@ vector<Employee> searchEmployeesByName(const vector<Employee> &employees, const 
     return result;
 }
 
+//Function to display search results by name
 void displaySearchResults(const vector<Employee> &employees, const vector<Employee> &result)
 {
     if (result.empty())
@@ -242,6 +254,7 @@ void displaySearchResults(const vector<Employee> &employees, const vector<Employ
     }
 }
 
+//Function to sort employees by salary
 void sortEmployeesBySalary(vector<Employee> &employees)
 {
     sort(employees.begin(), employees.end(), [](const Employee& a, const Employee& b) {
@@ -249,6 +262,7 @@ void sortEmployeesBySalary(vector<Employee> &employees)
     });
 }
 
+//Function to display sorted employees
 void displaySortedEmployees(const vector<Employee> &employees)
 {
     cout << "Employee List Sorted by Salary" << endl;
@@ -269,6 +283,8 @@ void displaySortedEmployees(const vector<Employee> &employees)
         cout << string(70, '-') << endl;
     }
 }
+
+//Function to display menu
 void menu(vector<Employee> &employees)
 {
     int choice, id;
